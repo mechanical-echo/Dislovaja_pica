@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,16 +24,27 @@ public class order extends JFrame implements ActionListener{
 	JPanel orderPanel = new JPanel();
 	JPanel orderButtonPanel = new JPanel();
 	JPanel MainPanel = new JPanel();
-	//subpanels
+	/////subpanels
+	//textfields
 	JPanel labels = new JPanel();
 	JPanel fields = new JPanel();
 	//radiobuttons
+	JPanel pizzaButtons = new JPanel();
+	JPanel sizeButtons = new JPanel();
+	/////radiobuttons
 	//pizzas
-	JRadioButton peperoni = new JRadioButton();
-	JRadioButton studenta = new JRadioButton();
-	JRadioButton vezuva = new JRadioButton();
-	JRadioButton grieku = new JRadioButton();
-	JRadioButton margarita = new JRadioButton();
+	JRadioButton peperoni = new JRadioButton("Peperoni");
+	JRadioButton studenta = new JRadioButton("Studenta");
+	JRadioButton vezuva = new JRadioButton("Vezuva");
+	JRadioButton grieku = new JRadioButton("Grieíu");
+	JRadioButton margarita = new JRadioButton("Margarita");
+	//sizes
+	JRadioButton s20 = new JRadioButton("20cm");
+	JRadioButton s30 = new JRadioButton("30cm");
+	JRadioButton s50 = new JRadioButton("50cm");
+	/////Buttons
+	//pizza
+	JButton seeDescription = new JButton("Picas apraksts");
 	public order(){
 		setTitle("Pasûtît picu");
 		int x=500, y=440;
@@ -87,6 +100,39 @@ public class order extends JFrame implements ActionListener{
 		/*
 		 * 
 		 */
+		pizzaButtons.setLayout(new GridLayout(5,1));
+		sizeButtons.setLayout(new GridLayout(3,1));
+		ButtonGroup pB = new ButtonGroup();
+		ButtonGroup sB = new ButtonGroup();
+		pB.add(peperoni);
+		pB.add(studenta);
+		pB.add(vezuva);
+		pB.add(grieku);
+		pB.add(margarita);
+		
+		pizzaButtons.add(peperoni);
+		pizzaButtons.add(studenta);
+		pizzaButtons.add(vezuva);
+		pizzaButtons.add(grieku);
+		pizzaButtons.add(margarita);
+		
+		sB.add(s20);
+		sB.add(s30);
+		sB.add(s50);
+		
+		sizeButtons.add(s20);
+		sizeButtons.add(s30);
+		sizeButtons.add(s50);
+		
+		pizzaPanel.add(pizzaButtons);
+		pizzaPanel.add(sizeButtons);
+		pizzaPanel.add(seeDescription);
+		
+		seeDescription.addActionListener(this);
+		/*
+		 * 
+		 */
+		
 	}
 
 	@Override
