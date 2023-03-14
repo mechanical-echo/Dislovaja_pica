@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -45,13 +48,14 @@ public class order extends JFrame implements ActionListener{
 	/////Buttons
 	//pizza
 	JButton seeDescription = new JButton("Picas apraksts");
+	JButton delete = new JButton("Noòemt picu");
+	JButton sendOrder = new JButton("Pasûtît");
+	JButton addPizza = new JButton("Pievienot picu");
+	/////Textarea
+	JTextArea orderContents = new JTextArea();
+	JScrollPane scroll = new JScrollPane();
 	public order(){
-		setTitle("Pasûtît picu");
-		int x=500, y=440;
-		setSize(x, x);
-		setLocation(1920/2-x/2, 1080/2-y/2);
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		
@@ -132,6 +136,28 @@ public class order extends JFrame implements ActionListener{
 		/*
 		 * 
 		 */
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.add(orderContents);
+		scroll.setBorder(border);
+		JLabel scrollLabel = new JLabel("Pasûtîjuma apraksts:");
+		scroll.setPreferredSize(new Dimension(200, 100));
+		orderPanel.add(scrollLabel);
+		orderPanel.add(scroll);
+		orderPanel.add(delete);
+		/*
+		 * 
+		 */
+//		orderButtonPanel.add(comp)
+		
+		/*
+		 * 
+		 */
+		setTitle("Pasûtît picu");
+		int x=500, y=370;
+		setSize(x, y);
+		setLocation(1920/2-x/2, 1080/2-y/2);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 
