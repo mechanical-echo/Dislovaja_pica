@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -147,8 +148,14 @@ public class order extends JFrame implements ActionListener{
 		/*
 		 * 
 		 */
-//		orderButtonPanel.add(comp)
-		
+		ImageIcon picaPicture = new ImageIcon("pica.png");
+		JLabel picture = new JLabel(picaPicture);
+		picture.setPreferredSize(new Dimension(200,80));
+		addPizza.setPreferredSize(new Dimension(200,30));
+		sendOrder.setPreferredSize(new Dimension(200,30));
+		orderButtonPanel.add(picture);
+		orderButtonPanel.add(addPizza);
+		orderButtonPanel.add(sendOrder);
 		/*
 		 * 
 		 */
