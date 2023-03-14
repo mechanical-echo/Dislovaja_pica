@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -56,7 +57,10 @@ public class order extends JFrame implements ActionListener{
 	JTextArea orderContents = new JTextArea();
 	JScrollPane scroll = new JScrollPane();
 	public order(){
-		
+		seeDescription.addActionListener(this);
+		addPizza.addActionListener(this);
+		sendOrder.addActionListener(this);
+		delete.addActionListener(this);
 		
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		
@@ -133,7 +137,7 @@ public class order extends JFrame implements ActionListener{
 		pizzaPanel.add(sizeButtons);
 		pizzaPanel.add(seeDescription);
 		
-		seeDescription.addActionListener(this);
+		
 		/*
 		 * 
 		 */
@@ -153,6 +157,8 @@ public class order extends JFrame implements ActionListener{
 		picture.setPreferredSize(new Dimension(200,80));
 		addPizza.setPreferredSize(new Dimension(200,30));
 		sendOrder.setPreferredSize(new Dimension(200,30));
+		
+		
 		orderButtonPanel.add(picture);
 		orderButtonPanel.add(addPizza);
 		orderButtonPanel.add(sendOrder);
@@ -169,9 +175,39 @@ public class order extends JFrame implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		
+	public void actionPerformed(ActionEvent button) {
+		if(button.getSource()==seeDescription){
+			description();
+		}else if(button.getSource()==delete){
+			//deletePizza();
+		}else if(button.getSource()==sendOrder){
+//			pasutit();
+		}else if(button.getSource()==addPizza){
+//			addPizzaToList();
+		}
 	}
-	
+	void description(){
+		if(peperoni.isSelected()){
+			JOptionPane.showMessageDialog(null, pDesc, "Peperoni pica", JOptionPane.PLAIN_MESSAGE);
+		}else
+		if(studenta.isSelected()){
+			JOptionPane.showMessageDialog(null, stDesc, "Studenta pica", JOptionPane.PLAIN_MESSAGE)	;	
+		}else
+		if(vezuva.isSelected()){
+			JOptionPane.showMessageDialog(null, vDesc, "Vezuva pica", JOptionPane.PLAIN_MESSAGE);
+		}else
+		if(grieku.isSelected()){
+			JOptionPane.showMessageDialog(null, gDesc, "Grieíu pica", JOptionPane.PLAIN_MESSAGE);
+		}else
+		if(margarita.isSelected()){
+			JOptionPane.showMessageDialog(null, mDesc, "Margarita pica", JOptionPane.PLAIN_MESSAGE);
+		}else{
+			JOptionPane.showMessageDialog(null, "Pica nav izvçlçta", "Kïûda", JOptionPane.ERROR_MESSAGE);
+		}
+}
+	String pDesc = "\"Pepperoni\" desa, mocarella, kûpinâts kausçtais siers, \"Taco\" mçrce, sîpolu èipsi, rukola, tomâtu mçrce, íiploku mçrce, oregano";
+	String stDesc = "Ðíiòíis, cîsiòi, mocarella, tomâtu mçrce, eïïas un íiploku mçrce, oregano";
+	String vDesc = "Ðíiòíis, mocarella, tomâtu mçrce, eïïas un íiploku mçrce, oregano";
+	String gDesc= "Svaigais siers, spinâti, skâbâ krçjuma un íiploku mçrce, tomâtu mçrce, mocarella, eïïas un íiploku mçrce, oregano";
+	String mDesc = "Mocarella, tomâtu mçrce, eïïas un íiploku mçrce, oregano";
 }
