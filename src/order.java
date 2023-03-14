@@ -7,18 +7,31 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 public class order extends JFrame implements ActionListener{
 	
 	JRadioButton s, m, l, thick, thin;
+	//big panels
 	JPanel textFieldPanel = new JPanel();
 	JPanel pizzaPanel = new JPanel();
 	JPanel orderPanel = new JPanel();
 	JPanel orderButtonPanel = new JPanel();
 	JPanel MainPanel = new JPanel();
+	//subpanels
+	JPanel labels = new JPanel();
+	JPanel fields = new JPanel();
+	//radiobuttons
+	//pizzas
+	JRadioButton peperoni = new JRadioButton();
+	JRadioButton studenta = new JRadioButton();
+	JRadioButton vezuva = new JRadioButton();
+	JRadioButton grieku = new JRadioButton();
+	JRadioButton margarita = new JRadioButton();
 	public order(){
 		setTitle("Pasûtît picu");
 		int x=500, y=440;
@@ -45,6 +58,35 @@ public class order extends JFrame implements ActionListener{
 		MainPanel.add(orderButtonPanel);
 		
 		add(MainPanel);
+		/*
+		 * 
+		 */
+		
+		labels.setLayout(new GridLayout(4,1));
+		fields.setLayout(new GridLayout(4,1));
+		JTextField vards = new JTextField(10);
+		JTextField numurs = new JTextField(10);
+		JTextField adrese = new JTextField(10);
+		JTextField epasts = new JTextField(10);
+		
+		JLabel ievadiVardu  = new JLabel("Jûsu vârds: ");
+		JLabel ievadiNumuru = new JLabel("Tal. numurs:");
+		JLabel ievadiAdresi = new JLabel("Jûsu adrese:");
+		JLabel ievadiEpastu = new JLabel("Jûsu epasts:");
+		labels.add(ievadiVardu);
+		fields.add(vards);
+		labels.add(ievadiNumuru);
+		fields.add(numurs);
+		labels.add(ievadiAdresi);
+		fields.add(adrese);
+		labels.add(ievadiEpastu);
+		fields.add(epasts);
+		
+		textFieldPanel.add(labels);
+		textFieldPanel.add(fields);
+		/*
+		 * 
+		 */
 	}
 
 	@Override
