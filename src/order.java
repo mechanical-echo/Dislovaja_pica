@@ -1,42 +1,56 @@
 
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.border.Border;
 
-public class order extends JFrame{
+public class order extends JFrame implements ActionListener{
 	
 	JRadioButton s, m, l, thick, thin;
-	JPanel panel = new JPanel();
-	
+	JPanel textFieldPanel = new JPanel();
+	JPanel pizzaPanel = new JPanel();
+	JPanel orderPanel = new JPanel();
+	JPanel orderButtonPanel = new JPanel();
+	JPanel MainPanel = new JPanel();
 	public order(){
 		setTitle("Pasûtît picu");
+		int x=500, y=440;
+		setSize(x, x);
+		setLocation(1920/2-x/2, 1080/2-y/2);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JTextField name,address;
-		JPanel namePan = new JPanel();
-		JLabel nameLab = new JLabel("Jûsu vârds:");
-		namePan.setLayout(new FlowLayout());
-		name=new JTextField();   
-		name.setPreferredSize(new Dimension(100, 20));
-		nameLab.setPreferredSize(new Dimension(70,20));
-		namePan.add(nameLab);
-		namePan.add(name);
-	    add(namePan); 
-	    address=new JTextField();  
-	    address.setBounds(50,150, 200,30);  
-	    add(address);  
-	    
-	    setLayout(new FlowLayout());
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		
-	    int x=1920/3, y=1080/3;
-	    setSize(x, x);
-	    setLocation(1920/2-x/2, 1080/2-y);
-	    setVisible(true);
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MainPanel.setLayout(new GridLayout(2,2));
+		textFieldPanel.setLayout(new FlowLayout());
+		orderPanel.setLayout(new FlowLayout());
+		orderButtonPanel.setLayout(new FlowLayout());
+		
+		textFieldPanel.setBorder(border);
+		pizzaPanel.setBorder(border);
+		orderPanel.setBorder(border);
+		orderButtonPanel.setBorder(border);
+		
+		MainPanel.add(textFieldPanel);
+		MainPanel.add(pizzaPanel);
+		MainPanel.add(orderPanel);
+		MainPanel.add(orderButtonPanel);
+		
+		add(MainPanel);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
