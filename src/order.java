@@ -1,6 +1,5 @@
 
 import java.awt.Color;
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -8,10 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,6 +51,12 @@ public class order extends JFrame implements ActionListener{
 	JRadioButton vezuva = new JRadioButton("Vezuva");
 	JRadioButton grieku = new JRadioButton("Grieíu");
 	JRadioButton margarita = new JRadioButton("Margarita");
+	/////piedevas
+	JCheckBoxMenuItem bekons = new JCheckBoxMenuItem("Bekons");
+	JCheckBoxMenuItem bbq = new JCheckBoxMenuItem("BBQ Mçrce");
+	JCheckBoxMenuItem ananasi = new JCheckBoxMenuItem("Ananâsi");
+	double[] piedevuCenas = {2.30, 0.85, 1.30};
+	JPanel piedevasPanel = new JPanel();
 	//sizes
 	JRadioButton s20 = new JRadioButton("20cm");
 	JRadioButton s30 = new JRadioButton("30cm");
@@ -137,11 +144,15 @@ public class order extends JFrame implements ActionListener{
 		sizeButtons.add(s20);
 		sizeButtons.add(s30);
 		sizeButtons.add(s50);
+		piedevasPanel.setLayout(new GridLayout(3,1));
+		piedevasPanel.add(bekons);
+		piedevasPanel.add(bbq);
+		piedevasPanel.add(ananasi);
 		
 		pizzaPanel.add(pizzaButtons);
 		pizzaPanel.add(sizeButtons);
+		pizzaPanel.add(piedevasPanel);
 		pizzaPanel.add(seeDescription);
-		
 		//pasutijuma detalas
 	
 		orderContents.setPreferredSize(new Dimension(220,100));
@@ -170,7 +181,7 @@ public class order extends JFrame implements ActionListener{
 		
 		/////galvena loga parametri
 		setTitle("Pasûtît picu");
-		int x=500, y=370;
+		int x=540, y=370;
 		setSize(x, y);
 		setLocation(1920/2-x/2, 1080/2-y/2);
 		setVisible(true);
@@ -191,12 +202,28 @@ public class order extends JFrame implements ActionListener{
 		}else if(button.getSource()==addPizza){
 			addPizzaToList();
 		}
+		
+		
+		
 	}
 	
 	/*******************
 	 * galvenas metodes
 	 */
 	void pasutit() {
+		double deliveryPrice;
+		
+		String[] optionsDelivery = {"Saòemt restauranâ", "Piegâde lîdz mâjâm"};
+		int index = JOptionPane.showOptionDialog(this, "Izvçlies piegâdes veidu:", "Piegâde", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsDelivery, optionsDelivery[0]);
+		
+		if(index==0){
+			deliveryPrice = 0;
+			irPiegade =false;
+		}
+		else{
+			deliveryPrice = 3.50;
+			irPiegade = true;
+		}
 		if(orderList.size()<1){
 			JOptionPane.showMessageDialog(this, "Pasûtîjumâ nekas nemaz nav!", "Kïûda", JOptionPane.ERROR_MESSAGE);
 			return;
@@ -205,31 +232,25 @@ public class order extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(this, "Kontaktinformâcija nav aizpildîta lîdz galâm!", "Kïûda", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		double deliveryPrice;
-		
-		String[] optionsDelivery = {"Saòemt restauranâ", "Piegâde lîdz mâjâm"};
-		int index = JOptionPane.showOptionDialog(this, "Izvçlies piegâdes veidu:", "Piegâde", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsDelivery, optionsDelivery[0]);
-		
-		if(index==0)
-			deliveryPrice = 0;
-		else
-			deliveryPrice = 3.50;
 		
 		double summary = sum(deliveryPrice);
-		summary *= 100;
-		summary = Math.round(summary);
-		summary /= 100;
+		
 		
 		String str = "";
-		str+=vards.getText()+"\n";
+		str+=vards.getText() +"\n";
 		str+=numurs.getText()+"\n";
-		str+=adrese.getText()+"\n";
+		if(irPiegade)
+			str+=adrese.getText()+"\n";
 		str+=epasts.getText()+"\n\n\n";
 		
 		
 		for(int i=0; i<orderList.size(); i++){
 			str+=orderList.get(i).descr()+"\n";
 		}
+		summary *= 100;
+		summary = Math.round(summary);
+		summary /= 100;
+		
 		str+="\n\n";
 		str+="Piegâdes cena: "+deliveryPrice+"€\n";
 		str+="Kopâ: "+summary+"€\n\n\n";
@@ -242,6 +263,7 @@ public class order extends JFrame implements ActionListener{
 			
 		}
 	}
+	boolean irPiegade;
 	void deletePizza(){
 		if(orderList.size()<1){
 			JOptionPane.showMessageDialog(this, "Pasûtîjumâ nekas nemaz nav!", "Kïûda", JOptionPane.ERROR_MESSAGE);
@@ -291,7 +313,37 @@ public class order extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, "Izmçrs nav izvçlçts", "Kïûda", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		orderList.add(new Pica(name, size, price));
+		ArrayList<String> piedevas = new ArrayList<String>();
+		if(bekons.isSelected()){
+			piedevas.add("Bekons");
+		}
+		if(bbq.isSelected()){
+			piedevas.add("BBQ Mçrce");
+		}
+		if(ananasi.isSelected()){
+			piedevas.add("Ananâsi");
+		}
+		if(!bekons.isSelected() && !ananasi.isSelected() && !bbq.isSelected()){
+			orderList.add(new Pica(name, size, price));
+		}
+		
+		orderList.add(new Pica(name, size, price, piedevas));
+		
+		peperoni.setSelected(false);
+		studenta.setSelected(false);
+		vezuva.setSelected(false);
+		grieku.setSelected(false);
+		margarita.setSelected(false);
+		
+		s20.setSelected(false);
+		s30.setSelected(false);
+		s50.setSelected(false);
+		
+		bekons.setSelected(false);
+		bbq.setSelected(false);
+		ananasi.setSelected(false);
+		
+		
 		printOrder();
 		
 	}
@@ -302,7 +354,6 @@ public class order extends JFrame implements ActionListener{
 		}
 		System.out.println(str);
 		orderContents.setText(str);
-		System.out.println("parbaude: "+orderContents.getText());
 	}
 	void description(){
 		if(peperoni.isSelected()){
@@ -348,16 +399,16 @@ public class order extends JFrame implements ActionListener{
 		if(vards.getText().length()<1){
 			return true;
 		}else
-		if(numurs.getText().length()<1){
-			return true;
-		}else if(numurs.getText().length()>0){
-			return checkNumurs(numurs.getText());
-		}else
-		if(adrese.getText().length()<1){
+		if(adrese.getText().length()<1 && irPiegade){
 			return true;
 		}else
 		if(epasts.getText().length()<1){
 			return true;
+		}
+		if(numurs.getText().length()<1){
+			return true;
+		}else if(numurs.getText().length()>0){
+			return checkNumurs(numurs.getText());
 		}else{
 			return false;
 		}
