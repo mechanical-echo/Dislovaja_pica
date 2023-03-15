@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -184,13 +185,26 @@ public class order extends JFrame implements ActionListener{
 		if(button.getSource()==seeDescription){
 			description();
 		}else if(button.getSource()==delete){
-			//deletePizza();
+			deletePizza();
 		}else if(button.getSource()==sendOrder){
 //			pasutit();
 		}else if(button.getSource()==addPizza){
 			addPizzaToList();
 		}
 	}
+	
+	
+	void deletePizza(){
+		String[] str = new String[orderList.size()];
+		for(int i=0; i<orderList.size(); i++){
+			str[i] = orderList.get(i).getName();
+		}
+		String choice =  (String) JOptionPane.showInputDialog(null, "Izvçlies picu, kura jâdzçð: ", "Izvçle", JOptionPane.QUESTION_MESSAGE, null, str, str[0]);
+		int index = Arrays.asList(str).indexOf(choice);
+		orderList.remove(index);
+		printOrder();
+	}
+	
 	double[] peperoniCenas = {7.39, 12.99, 21.99};
 	double[] studentaCenas = {6.59, 11.99, 18.99};
 	double[] vezuvaCenas =   {6.59, 11.99, 18.99};
