@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -55,7 +56,7 @@ public class order extends JFrame implements ActionListener{
 	JButton addPizza = new JButton("Pievienot picu");
 	/////Textarea
 	JTextArea orderContents = new JTextArea();
-	JScrollPane scroll = new JScrollPane();
+	JScrollPane scroll = new JScrollPane(orderContents);
 	public order(){
 		seeDescription.addActionListener(this);
 		addPizza.addActionListener(this);
@@ -142,10 +143,14 @@ public class order extends JFrame implements ActionListener{
 		 * 
 		 */
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.add(orderContents);
+	
+		orderContents.setPreferredSize(new Dimension(220,100));
+	    orderContents.setEditable(false);
+	    orderContents.setBorder(border);
 		scroll.setBorder(border);
 		JLabel scrollLabel = new JLabel("Pasûtîjuma apraksts:");
-		scroll.setPreferredSize(new Dimension(200, 100));
+		
+//		scroll.setPreferredSize(new Dimension(300, 150));
 		orderPanel.add(scrollLabel);
 		orderPanel.add(scroll);
 		orderPanel.add(delete);
@@ -173,7 +178,7 @@ public class order extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
-
+	ArrayList<Pica> orderList = new ArrayList<Pica>();
 	@Override
 	public void actionPerformed(ActionEvent button) {
 		if(button.getSource()==seeDescription){
@@ -183,8 +188,62 @@ public class order extends JFrame implements ActionListener{
 		}else if(button.getSource()==sendOrder){
 //			pasutit();
 		}else if(button.getSource()==addPizza){
-//			addPizzaToList();
+			addPizzaToList();
 		}
+	}
+	double[] peperoniCenas = {7.39, 12.99, 21.99};
+	double[] studentaCenas = {6.59, 11.99, 18.99};
+	double[] vezuvaCenas =   {6.59, 11.99, 18.99};
+	double[] griekuCenas =   {6.59, 11.99, 18.99};
+	double[] margaritaCenas= {4.19, 7.69,  13.99};
+	double[][] cenas = {peperoniCenas, studentaCenas, vezuvaCenas, griekuCenas, margaritaCenas}; 
+	void addPizzaToList(){
+		String name;
+		int size, i;
+		double price;
+		if(peperoni.isSelected()){
+			name = "Peperoni"; i =0;
+		}else
+		if(studenta.isSelected()){
+			name = "Studenta";i =1;
+		}else
+		if(vezuva.isSelected()){
+			name = "Vezuva";i =2;
+		}else
+		if(grieku.isSelected()){
+			name = "Grieíu";i =3;
+		}else
+		if(margarita.isSelected()){
+			name = "Margarita";i =4;
+		}else{
+			JOptionPane.showMessageDialog(null, "Pica nav izvçlçta", "Kïûda", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		if(s20.isSelected()){
+			size = 20;price = cenas[i][0];
+		}else
+		if(s30.isSelected()){
+			size = 30;price = cenas[i][1];
+		}else
+		if(s50.isSelected()){
+			size = 50;price = cenas[i][2];
+		}else{
+			JOptionPane.showMessageDialog(null, "Izmçrs nav izvçlçts", "Kïûda", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		orderList.add(new Pica(name, size, price));
+		printOrder();
+		
+	}
+	void printOrder(){
+		String str = "";
+		for(int i=0; i<orderList.size(); i++){
+			str+=orderList.get(i).getName()+", "+orderList.get(i).getSize()+"cm, cena: "+orderList.get(i).getPrice()+"€\n";
+		}
+		System.out.println(str);
+		orderContents.setText(str);
+		System.out.println("parbaude: "+orderContents.getText());
 	}
 	void description(){
 		if(peperoni.isSelected()){
