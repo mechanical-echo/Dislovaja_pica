@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -33,8 +34,14 @@ public class order extends JFrame implements ActionListener{
 	JPanel MainPanel = new JPanel();
 	/////subpanels
 	//textfields
+	List<JTextField> inputFields = new ArrayList<JTextField>();
 	JPanel labels = new JPanel();
 	JPanel fields = new JPanel();
+	JTextField vards = new JTextField(10);
+	JTextField numurs = new JTextField(10);
+	JTextField adrese = new JTextField(10);
+	JTextField epasts = new JTextField(10);
+	
 	//radiobuttons
 	JPanel pizzaButtons = new JPanel();
 	JPanel sizeButtons = new JPanel();
@@ -88,10 +95,7 @@ public class order extends JFrame implements ActionListener{
 		
 		labels.setLayout(new GridLayout(4,1));
 		fields.setLayout(new GridLayout(4,1));
-		JTextField vards = new JTextField(10);
-		JTextField numurs = new JTextField(10);
-		JTextField adrese = new JTextField(10);
-		JTextField epasts = new JTextField(10);
+		
 		
 		JLabel ievadiVardu  = new JLabel("Jûsu vârds: ");
 		JLabel ievadiNumuru = new JLabel("Tal. numurs:");
@@ -158,7 +162,6 @@ public class order extends JFrame implements ActionListener{
 		/*
 		 * 
 		 */
-		ImageIcon picaPicture = new ImageIcon("pica.png");
 		JLabel picture = new JLabel(picaPicture);
 		picture.setPreferredSize(new Dimension(200,80));
 		addPizza.setPreferredSize(new Dimension(200,30));
@@ -179,6 +182,7 @@ public class order extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
+	ImageIcon picaPicture = new ImageIcon("pica.png");
 	ArrayList<Pica> orderList = new ArrayList<Pica>();
 	@Override
 	public void actionPerformed(ActionEvent button) {
@@ -187,14 +191,112 @@ public class order extends JFrame implements ActionListener{
 		}else if(button.getSource()==delete){
 			deletePizza();
 		}else if(button.getSource()==sendOrder){
-//			pasutit();
+			pasutit();
 		}else if(button.getSource()==addPizza){
 			addPizzaToList();
 		}
 	}
 	
+	boolean checkNumurs(String num){
+		if(num.length()!=8){
+			JOptionPane.showMessageDialog(this, "Numurâ jâbut 8 cipari!", "Kïûda", JOptionPane.ERROR_MESSAGE);
+			return true;
+		}
+		
+			for(int i=0; i<num.length(); i++){
+					int x = num.charAt(i);
+					if(x<48 || x>57){
+						JOptionPane.showMessageDialog(this, "Numurs nav ievadîts korekti", "Kïûda", JOptionPane.ERROR_MESSAGE);
+						return true;						
+					}else if(x>=48 && x<=57 && i==0 && x!=50){
+						JOptionPane.showMessageDialog(this, "Numura pirmam ciparam jâbut 2", "Kïûda", JOptionPane.ERROR_MESSAGE);
+						return true;
+					}
+			}
+			return false;
+	}
 	
+	boolean noContactData(){
+		if(vards.getText().length()<1){
+			return true;
+		}else
+		if(numurs.getText().length()<1){
+			return true;
+		}else if(numurs.getText().length()>0){
+			return checkNumurs(numurs.getText());
+		}else
+		if(adrese.getText().length()<1){
+			return true;
+		}else
+		if(epasts.getText().length()<1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	void pasutit() {
+		if(orderList.size()<1){
+			JOptionPane.showMessageDialog(this, "Pasûtîjumâ nekas nemaz nav!", "Kïûda", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		if(noContactData()){
+			JOptionPane.showMessageDialog(this, "Kontaktinformâcija nav aizpildîta lîdz galâm!", "Kïûda", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		double deliveryPrice;
+		
+		String[] optionsDelivery = {"Saòemt restauranâ", "Piegâde lîdz mâjâm"};
+		int index = JOptionPane.showOptionDialog(this, "Izvçlies piegâdes veidu:", "Piegâde", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsDelivery, optionsDelivery[0]);
+		
+		if(index==0)
+			deliveryPrice = 0;
+		else
+			deliveryPrice = 3.50;
+		
+		double summary = sum(deliveryPrice);
+		summary *= 100;
+		summary = Math.round(summary);
+		summary /= 100;
+		
+		String str = "";
+		str+=vards.getText()+"\n";
+		str+=numurs.getText()+"\n";
+		str+=adrese.getText()+"\n";
+		str+=epasts.getText()+"\n\n\n";
+		
+		
+		for(int i=0; i<orderList.size(); i++){
+			str+=orderList.get(i).descr()+"\n";
+		}
+		str+="\n\n";
+		str+="Piegâdes cena: "+deliveryPrice+"€\n";
+		str+="Kopâ: "+summary+"€\n\n\n";
+		
+		String[] optionsPayment = {"Apmaksât", "Atcelt"};
+		index = JOptionPane.showOptionDialog(this, str, "Pasûtîjums", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsPayment, optionsPayment[0]);
+		if(index==0){
+			dispose();
+			JOptionPane.showMessageDialog(null, "Labu apetîti!", "Paldies", JOptionPane.PLAIN_MESSAGE, picaPicture);
+			
+		}
+	}
+	
+	double sum(double del){
+		double a=0;
+		for(int i=0; i<orderList.size(); i++){
+			a+= orderList.get(i).getPrice();
+		}
+		a+=del;
+		return a;
+	}
+
+
 	void deletePizza(){
+		if(orderList.size()<1){
+			JOptionPane.showMessageDialog(this, "Pasûtîjumâ nekas nemaz nav!", "Kïûda", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		String[] str = new String[orderList.size()];
 		for(int i=0; i<orderList.size(); i++){
 			str[i] = orderList.get(i).getName();

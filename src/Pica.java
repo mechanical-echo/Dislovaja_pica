@@ -18,4 +18,8 @@ public class Pica {
 	public int getSize(){
 		return size;
 	}
+	
+	public String descr(){
+		return "\""+name+"\", "+size+"cm, cena: "+price+"€";
+	}
 }
