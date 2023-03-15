@@ -31,6 +31,6 @@ public class Pica {
 	}
 	
 	public String descr(){
-		return "\""+name+"\", "+size+"cm, cena: "+price+"€";
+		return "\""+name+"\", "+size+"cm, cena: "+price+"â‚¬";
 	}
 }
