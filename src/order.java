@@ -55,7 +55,6 @@ public class order extends JFrame implements ActionListener{
 	JCheckBoxMenuItem bekons = new JCheckBoxMenuItem("Bekons");
 	JCheckBoxMenuItem bbq = new JCheckBoxMenuItem("BBQ");
 	JCheckBoxMenuItem ananasi = new JCheckBoxMenuItem("Ananasi");
-	
 	JPanel piedevasPanel = new JPanel();
 	//sizes
 	JRadioButton s20 = new JRadioButton("20cm");
@@ -150,10 +149,6 @@ public class order extends JFrame implements ActionListener{
 		/*****************************************
 		 * TEXTAREA AND SCROLLBAR
 		 */
-		//textarea = orderContents
-		//jpanel = orderPanel
-		//jlabel = scrolllabel
-		//jbutton = delete
 		scroll = new JScrollPane(orderContents);
 		orderPanel.add(new JLabel("Pasūtījuma apraksts:"));
 		orderPanel.add(scroll);
@@ -190,7 +185,7 @@ public class order extends JFrame implements ActionListener{
 		
 	}
 	/*******************
-	 * pogu darb�bas
+	 *pogu darbibas
 	 */
 	@Override
 	public void actionPerformed(ActionEvent button) {
@@ -246,7 +241,15 @@ public class order extends JFrame implements ActionListener{
 		
 		
 		for(int i=0; i<orderList.size(); i++){
-			str+=orderList.get(i).descr()+"\n";
+			if(orderList.get(i).irPiedevas) {
+				str+=orderList.get(i).getName()+", "+orderList.get(i).getSize()+"cm, cena: "+orderList.get(i).getPrice()+"€\nPiedēvas:\n"+visasPiedevas(orderList.get(i));
+			}else{
+				str+=orderList.get(i).getName()+", "+orderList.get(i).getSize()+"cm, cena: "+orderList.get(i).getPrice()+"€\n";
+			}
+			str+="-~-~-~-~-~-~-~-~-~-\n";
+		}
+		for(int i=0; i<orderList.size(); i++) {
+			
 		}
 		summary *= 100;
 		summary = Math.round(summary);
