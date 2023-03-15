@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -7,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -23,6 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+@SuppressWarnings("serial")
 public class order extends JFrame implements ActionListener{
 	
 	JRadioButton s, m, l, thick, thin;
@@ -34,14 +34,12 @@ public class order extends JFrame implements ActionListener{
 	JPanel MainPanel = new JPanel();
 	/////subpanels
 	//textfields
-	List<JTextField> inputFields = new ArrayList<JTextField>();
 	JPanel labels = new JPanel();
 	JPanel fields = new JPanel();
 	JTextField vards = new JTextField(10);
 	JTextField numurs = new JTextField(10);
 	JTextField adrese = new JTextField(10);
 	JTextField epasts = new JTextField(10);
-	
 	//radiobuttons
 	JPanel pizzaButtons = new JPanel();
 	JPanel sizeButtons = new JPanel();
@@ -65,6 +63,9 @@ public class order extends JFrame implements ActionListener{
 	/////Textarea
 	JTextArea orderContents = new JTextArea();
 	JScrollPane scroll = new JScrollPane(orderContents);
+	/////parejie
+	ImageIcon picaPicture = new ImageIcon("pica.png");
+	ArrayList<Pica> orderList = new ArrayList<Pica>();
 	public order(){
 		seeDescription.addActionListener(this);
 		addPizza.addActionListener(this);
@@ -89,10 +90,8 @@ public class order extends JFrame implements ActionListener{
 		MainPanel.add(orderButtonPanel);
 		
 		add(MainPanel);
-		/*
-		 * 
-		 */
 		
+		////// ievaddati
 		labels.setLayout(new GridLayout(4,1));
 		fields.setLayout(new GridLayout(4,1));
 		
@@ -112,9 +111,9 @@ public class order extends JFrame implements ActionListener{
 		
 		textFieldPanel.add(labels);
 		textFieldPanel.add(fields);
-		/*
-		 * 
-		 */
+		
+		
+		/////Picas un izmera izvele
 		pizzaButtons.setLayout(new GridLayout(5,1));
 		sizeButtons.setLayout(new GridLayout(3,1));
 		ButtonGroup pB = new ButtonGroup();
@@ -143,26 +142,23 @@ public class order extends JFrame implements ActionListener{
 		pizzaPanel.add(sizeButtons);
 		pizzaPanel.add(seeDescription);
 		
-		
-		/*
-		 * 
-		 */
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//pasutijuma detalas
 	
 		orderContents.setPreferredSize(new Dimension(220,100));
 	    orderContents.setEditable(false);
 	    orderContents.setBorder(border);
+
+	    scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setBorder(border);
+		
 		JLabel scrollLabel = new JLabel("Pasûtîjuma apraksts:");
 		
-//		scroll.setPreferredSize(new Dimension(300, 150));
 		orderPanel.add(scrollLabel);
 		orderPanel.add(scroll);
 		orderPanel.add(delete);
-		/*
-		 * 
-		 */
+		
 		JLabel picture = new JLabel(picaPicture);
+		
 		picture.setPreferredSize(new Dimension(200,80));
 		addPizza.setPreferredSize(new Dimension(200,30));
 		sendOrder.setPreferredSize(new Dimension(200,30));
@@ -171,9 +167,8 @@ public class order extends JFrame implements ActionListener{
 		orderButtonPanel.add(picture);
 		orderButtonPanel.add(addPizza);
 		orderButtonPanel.add(sendOrder);
-		/*
-		 * 
-		 */
+		
+		/////galvena loga parametri
 		setTitle("Pasûtît picu");
 		int x=500, y=370;
 		setSize(x, y);
@@ -182,8 +177,9 @@ public class order extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
-	ImageIcon picaPicture = new ImageIcon("pica.png");
-	ArrayList<Pica> orderList = new ArrayList<Pica>();
+	/*******************
+	 * pogu darbîbas
+	 */
 	@Override
 	public void actionPerformed(ActionEvent button) {
 		if(button.getSource()==seeDescription){
@@ -197,44 +193,9 @@ public class order extends JFrame implements ActionListener{
 		}
 	}
 	
-	boolean checkNumurs(String num){
-		if(num.length()!=8){
-			JOptionPane.showMessageDialog(this, "Numurâ jâbut 8 cipari!", "Kïûda", JOptionPane.ERROR_MESSAGE);
-			return true;
-		}
-		
-			for(int i=0; i<num.length(); i++){
-					int x = num.charAt(i);
-					if(x<48 || x>57){
-						JOptionPane.showMessageDialog(this, "Numurs nav ievadîts korekti", "Kïûda", JOptionPane.ERROR_MESSAGE);
-						return true;						
-					}else if(x>=48 && x<=57 && i==0 && x!=50){
-						JOptionPane.showMessageDialog(this, "Numura pirmam ciparam jâbut 2", "Kïûda", JOptionPane.ERROR_MESSAGE);
-						return true;
-					}
-			}
-			return false;
-	}
-	
-	boolean noContactData(){
-		if(vards.getText().length()<1){
-			return true;
-		}else
-		if(numurs.getText().length()<1){
-			return true;
-		}else if(numurs.getText().length()>0){
-			return checkNumurs(numurs.getText());
-		}else
-		if(adrese.getText().length()<1){
-			return true;
-		}else
-		if(epasts.getText().length()<1){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
+	/*******************
+	 * galvenas metodes
+	 */
 	void pasutit() {
 		if(orderList.size()<1){
 			JOptionPane.showMessageDialog(this, "Pasûtîjumâ nekas nemaz nav!", "Kïûda", JOptionPane.ERROR_MESSAGE);
@@ -281,17 +242,6 @@ public class order extends JFrame implements ActionListener{
 			
 		}
 	}
-	
-	double sum(double del){
-		double a=0;
-		for(int i=0; i<orderList.size(); i++){
-			a+= orderList.get(i).getPrice();
-		}
-		a+=del;
-		return a;
-	}
-
-
 	void deletePizza(){
 		if(orderList.size()<1){
 			JOptionPane.showMessageDialog(this, "Pasûtîjumâ nekas nemaz nav!", "Kïûda", JOptionPane.ERROR_MESSAGE);
@@ -306,13 +256,6 @@ public class order extends JFrame implements ActionListener{
 		orderList.remove(index);
 		printOrder();
 	}
-	
-	double[] peperoniCenas = {7.39, 12.99, 21.99};
-	double[] studentaCenas = {6.59, 11.99, 18.99};
-	double[] vezuvaCenas =   {6.59, 11.99, 18.99};
-	double[] griekuCenas =   {6.59, 11.99, 18.99};
-	double[] margaritaCenas= {4.19, 7.69,  13.99};
-	double[][] cenas = {peperoniCenas, studentaCenas, vezuvaCenas, griekuCenas, margaritaCenas}; 
 	void addPizzaToList(){
 		String name;
 		int size, i;
@@ -380,6 +323,62 @@ public class order extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, "Pica nav izvçlçta", "Kïûda", JOptionPane.ERROR_MESSAGE);
 		}
 }
+	/*********************
+	 * ievaddatu parbaudes
+	 */
+	boolean checkNumurs(String num){
+		if(num.length()!=8){
+			JOptionPane.showMessageDialog(this, "Numurâ jâbut 8 cipari!", "Kïûda", JOptionPane.ERROR_MESSAGE);
+			return true;
+		}
+		
+			for(int i=0; i<num.length(); i++){
+					int x = num.charAt(i);
+					if(x<48 || x>57){
+						JOptionPane.showMessageDialog(this, "Numurs nav ievadîts korekti", "Kïûda", JOptionPane.ERROR_MESSAGE);
+						return true;						
+					}else if(x>=48 && x<=57 && i==0 && x!=50){
+						JOptionPane.showMessageDialog(this, "Numura pirmam ciparam jâbut 2", "Kïûda", JOptionPane.ERROR_MESSAGE);
+						return true;
+					}
+			}
+			return false;
+	}
+	boolean noContactData(){
+		if(vards.getText().length()<1){
+			return true;
+		}else
+		if(numurs.getText().length()<1){
+			return true;
+		}else if(numurs.getText().length()>0){
+			return checkNumurs(numurs.getText());
+		}else
+		if(adrese.getText().length()<1){
+			return true;
+		}else
+		if(epasts.getText().length()<1){
+			return true;
+		}else{
+			return false;
+		}
+	}	
+	/*********************
+	 * parejie mainigie 
+	 */
+	double sum(double del){
+		double a=0;
+		for(int i=0; i<orderList.size(); i++){
+			a+= orderList.get(i).getPrice();
+		}
+		a+=del;
+		return a;
+	}
+	double[] peperoniCenas = {7.39, 12.99, 21.99};
+	double[] studentaCenas = {6.59, 11.99, 18.99};
+	double[] vezuvaCenas =   {6.59, 11.99, 18.99};
+	double[] griekuCenas =   {6.59, 11.99, 18.99};
+	double[] margaritaCenas= {4.19, 7.69,  13.99};
+	double[][] cenas = {peperoniCenas, studentaCenas, vezuvaCenas, griekuCenas, margaritaCenas}; 
 	String pDesc = "\"Pepperoni\" desa, mocarella, kûpinâts kausçtais siers, \"Taco\" mçrce, sîpolu èipsi, rukola, tomâtu mçrce, íiploku mçrce, oregano";
 	String stDesc = "Ðíiòíis, cîsiòi, mocarella, tomâtu mçrce, eïïas un íiploku mçrce, oregano";
 	String vDesc = "Ðíiòíis, mocarella, tomâtu mçrce, eïïas un íiploku mçrce, oregano";
