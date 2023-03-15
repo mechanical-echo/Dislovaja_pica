@@ -69,7 +69,7 @@ public class order extends JFrame implements ActionListener{
 	JButton addPizza = new JButton("Pievienot picu");
 	/////Textarea
 	JTextArea orderContents = new JTextArea();
-	JScrollPane scroll = new JScrollPane(orderContents);
+	JScrollPane scroll;
 	/////parejie
 	ImageIcon picaPicture = new ImageIcon("pica.png");
 	ArrayList<Pica> orderList = new ArrayList<Pica>();
@@ -91,12 +91,6 @@ public class order extends JFrame implements ActionListener{
 		orderPanel.setBorder(border);
 		orderButtonPanel.setBorder(border);
 		
-		MainPanel.add(textFieldPanel);
-		MainPanel.add(pizzaPanel);
-		MainPanel.add(orderPanel);
-		MainPanel.add(orderButtonPanel);
-		
-		add(MainPanel);
 		
 		////// ievaddati
 		labels.setLayout(new GridLayout(4,1));
@@ -153,27 +147,27 @@ public class order extends JFrame implements ActionListener{
 		pizzaPanel.add(sizeButtons);
 		pizzaPanel.add(piedevasPanel);
 		pizzaPanel.add(seeDescription);
-		//pasutijuma detalas
-	
-		orderContents.setPreferredSize(new Dimension(220,100));
-	    orderContents.setEditable(false);
-	    orderContents.setBorder(border);
-
-	    scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setBorder(border);
-		
-		JLabel scrollLabel = new JLabel("Pas�t�juma apraksts:");
-		
-		orderPanel.add(scrollLabel);
+		/*****************************************
+		 * TEXTAREA AND SCROLLBAR
+		 */
+		//textarea = orderContents
+		//jpanel = orderPanel
+		//jlabel = scrolllabel
+		//jbutton = delete
+		scroll = new JScrollPane(orderContents);
+		orderPanel.add(new JLabel("Pasūtījuma apraksts:"));
 		orderPanel.add(scroll);
 		orderPanel.add(delete);
-		
+		orderPanel.setLayout(new FlowLayout());
+		scroll.setPreferredSize(new Dimension(220,100));
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		/*	
+		 * 
+		 */
 		JLabel picture = new JLabel(picaPicture);
-		
 		picture.setPreferredSize(new Dimension(200,80));
 		addPizza.setPreferredSize(new Dimension(200,30));
 		sendOrder.setPreferredSize(new Dimension(200,30));
-		
 		
 		orderButtonPanel.add(picture);
 		orderButtonPanel.add(addPizza);
@@ -186,6 +180,13 @@ public class order extends JFrame implements ActionListener{
 		setLocation(1920/2-x/2, 1080/2-y/2);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		MainPanel.add(textFieldPanel);
+		MainPanel.add(pizzaPanel);
+		MainPanel.add(orderPanel);
+		MainPanel.add(orderButtonPanel);
+		
+		add(MainPanel);
 		
 	}
 	/*******************
@@ -383,6 +384,7 @@ public class order extends JFrame implements ActionListener{
 		}
 		System.out.println(str);
 		orderContents.setText(str);
+		orderContents.updateUI();
 	}
 	void description(){
 		if(peperoni.isSelected()){
