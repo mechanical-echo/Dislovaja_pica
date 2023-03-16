@@ -49,7 +49,7 @@ public class order extends JFrame implements ActionListener{
 	JRadioButton peperoni = new JRadioButton("Peperoni");
 	JRadioButton studenta = new JRadioButton("Studenta");
 	JRadioButton vezuva = new JRadioButton("Vezuva");
-	JRadioButton grieku = new JRadioButton("Grie�u");
+	JRadioButton grieku = new JRadioButton("Grieķu");
 	JRadioButton margarita = new JRadioButton("Margarita");
 	/////piedevas
 	JCheckBoxMenuItem bekons = new JCheckBoxMenuItem("Bekons");
@@ -63,8 +63,8 @@ public class order extends JFrame implements ActionListener{
 	/////Buttons
 	//pizza
 	JButton seeDescription = new JButton("Picas apraksts");
-	JButton delete = new JButton("No�emt picu");
-	JButton sendOrder = new JButton("Pas�t�t");
+	JButton delete = new JButton("Noņemt picu");
+	JButton sendOrder = new JButton("Pasūtīt");
 	JButton addPizza = new JButton("Pievienot picu");
 	/////Textarea
 	JTextArea orderContents = new JTextArea();
@@ -96,10 +96,10 @@ public class order extends JFrame implements ActionListener{
 		fields.setLayout(new GridLayout(4,1));
 		
 		
-		JLabel ievadiVardu  = new JLabel("J�su v�rds: ");
+		JLabel ievadiVardu  = new JLabel("Jūsu vārds: ");
 		JLabel ievadiNumuru = new JLabel("Tal. numurs:");
-		JLabel ievadiAdresi = new JLabel("J�su adrese:");
-		JLabel ievadiEpastu = new JLabel("J�su epasts:");
+		JLabel ievadiAdresi = new JLabel("Jūsu adrese:");
+		JLabel ievadiEpastu = new JLabel("Jūsu epasts:");
 		labels.add(ievadiVardu);
 		fields.add(vards);
 		labels.add(ievadiNumuru);
@@ -169,7 +169,7 @@ public class order extends JFrame implements ActionListener{
 		orderButtonPanel.add(sendOrder);
 		
 		/////galvena loga parametri
-		setTitle("Pas�t�t picu");
+		setTitle("Pasūtīt picu");
 		int x=540, y=370;
 		setSize(x, y);
 		setLocation(1920/2-x/2, 1080/2-y/2);
@@ -209,8 +209,8 @@ public class order extends JFrame implements ActionListener{
 	void pasutit() {
 		double deliveryPrice;
 		
-		String[] optionsDelivery = {"Sa�emt restauran�", "Pieg�de l�dz m�j�m"};
-		int index = JOptionPane.showOptionDialog(this, "Izv�lies pieg�des veidu:", "Pieg�de", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsDelivery, optionsDelivery[0]);
+		String[] optionsDelivery = {"Saņemt restauranā", "Piegāde līdz mājām"};
+		int index = JOptionPane.showOptionDialog(this, "Izvēlies piegādes veidu:", "Piegāde", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsDelivery, optionsDelivery[0]);
 		
 		if(index==0){
 			deliveryPrice = 0;
@@ -221,11 +221,11 @@ public class order extends JFrame implements ActionListener{
 			irPiegade = true;
 		}
 		if(orderList.size()<1){
-			JOptionPane.showMessageDialog(this, "Pas�t�jum� nekas nemaz nav!", "K��da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Pasūtījumā nekas nemaz nav!", "Klūda", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		if(noContactData()){
-			JOptionPane.showMessageDialog(this, "Kontaktinform�cija nav aizpild�ta l�dz gal�m!", "K��da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Kontaktinformācija nav aizpildīta līdz galām!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
@@ -233,11 +233,12 @@ public class order extends JFrame implements ActionListener{
 		
 		
 		String str = "";
-		str+=vards.getText() +"\n";
-		str+=numurs.getText()+"\n";
-		if(irPiegade)
-			str+=adrese.getText()+"\n";
-		str+=epasts.getText()+"\n\n\n";
+		str+="Vārds: "+vards.getText() +"\n";
+		str+="Talr.: "+numurs.getText()+"\n";
+		if(irPiegade){
+			str+="Adrese: "+adrese.getText()+"\n";
+			str+="Email: "+epasts.getText()+"\n\n";
+		}
 		
 		
 		for(int i=0; i<orderList.size(); i++){
@@ -249,35 +250,49 @@ public class order extends JFrame implements ActionListener{
 			str+="-~-~-~-~-~-~-~-~-~-\n";
 		}
 		for(int i=0; i<orderList.size(); i++) {
-			
+			if(orderList.get(i).irPiedevas){
+				for(String j : orderList.get(i).piedevas){
+					switch(j){
+					case "Bekons":
+						summary += piedevuCenas[0];
+						break;
+					case "BBQ":
+						summary += piedevuCenas[1];
+						break;
+					case "Ananasi":
+						summary += piedevuCenas[2];
+						break;
+					}
+				}
+			}
 		}
 		summary *= 100;
 		summary = Math.round(summary);
 		summary /= 100;
 		
-		str+="\n\n";
-		str+="Pieg�des cena: "+deliveryPrice+"�\n";
-		str+="Kop�: "+summary+"�\n\n\n";
-		
-		String[] optionsPayment = {"Apmaks�t", "Atcelt"};
-		index = JOptionPane.showOptionDialog(this, str, "Pas�t�jums", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsPayment, optionsPayment[0]);
+		str+="Piegādes cena: "+deliveryPrice+"€\n";
+		str+="Kopā: "+summary+"€\n";
+		str+="-~-~---------~-~-~-\n";
+		str+="-~-~-~-~-~-~-~-~-~-\n";
+		String[] optionsPayment = {"Apmaksāt", "Atcelt"};
+		index = JOptionPane.showOptionDialog(this, str, "Pasūtījums", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsPayment, optionsPayment[0]);
 		if(index==0){
 			dispose();
-			JOptionPane.showMessageDialog(null, "Labu apet�ti!", "Paldies", JOptionPane.PLAIN_MESSAGE, picaPicture);
-			
+			Main.checkout(str);
+			Main.readFile();
 		}
 	}
 	boolean irPiegade;
 	void deletePizza(){
 		if(orderList.size()<1){
-			JOptionPane.showMessageDialog(this, "Pas�t�jum� nekas nemaz nav!", "K��da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Pasļæ½tļæ½jumļæ½ nekas nemaz nav!", "Kļæ½ļæ½da", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		String[] str = new String[orderList.size()];
 		for(int i=0; i<orderList.size(); i++){
 			str[i] = orderList.get(i).getName();
 		}
-		String choice =  (String) JOptionPane.showInputDialog(null, "Izv�lies picu, kura j�dz��: ", "Izv�le", JOptionPane.QUESTION_MESSAGE, null, str, str[0]);
+		String choice =  (String) JOptionPane.showInputDialog(null, "Izvļæ½lies picu, kura jļæ½dzļæ½ļæ½: ", "Izvļæ½le", JOptionPane.QUESTION_MESSAGE, null, str, str[0]);
 		int index = Arrays.asList(str).indexOf(choice);
 		orderList.remove(index);
 		printOrder();
@@ -296,12 +311,12 @@ public class order extends JFrame implements ActionListener{
 			name = "Vezuva";i =2;
 		}else
 		if(grieku.isSelected()){
-			name = "Grie�u";i =3;
+			name = "Grieļæ½u";i =3;
 		}else
 		if(margarita.isSelected()){
 			name = "Margarita";i =4;
 		}else{
-			JOptionPane.showMessageDialog(null, "Pica nav izv�l�ta", "K��da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Pica nav izvļæ½lļæ½ta", "Kļæ½ļæ½da", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
@@ -314,7 +329,7 @@ public class order extends JFrame implements ActionListener{
 		if(s50.isSelected()){
 			size = 50;price = cenas[i][2];
 		}else{
-			JOptionPane.showMessageDialog(null, "Izm�rs nav izv�l�ts", "K��da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Izmļæ½rs nav izvļæ½lļæ½ts", "Kļæ½ļæ½da", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		ArrayList<String> piedevas = new ArrayList<String>();
@@ -370,7 +385,7 @@ public class order extends JFrame implements ActionListener{
 				i=2;
 				break;
 			}
-			str+="⚬"+pied+" = "+piedevuCenas[i]+"€\n";
+			str+=">"+pied+" = "+piedevuCenas[i]+"€\n";
 		}
 		return str;
 	}
@@ -400,12 +415,12 @@ public class order extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, vDesc, "Vezuva pica", JOptionPane.PLAIN_MESSAGE);
 		}else
 		if(grieku.isSelected()){
-			JOptionPane.showMessageDialog(null, gDesc, "Grie�u pica", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, gDesc, "Grieķu pica", JOptionPane.PLAIN_MESSAGE);
 		}else
 		if(margarita.isSelected()){
 			JOptionPane.showMessageDialog(null, mDesc, "Margarita pica", JOptionPane.PLAIN_MESSAGE);
 		}else{
-			JOptionPane.showMessageDialog(null, "Pica nav izv�l�ta", "K��da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Pica nav izvēlēta", "Kļūda", JOptionPane.ERROR_MESSAGE);
 		}
 }
 	/*********************
@@ -413,17 +428,17 @@ public class order extends JFrame implements ActionListener{
 	 */
 	boolean checkNumurs(String num){
 		if(num.length()!=8){
-			JOptionPane.showMessageDialog(this, "Numur� j�but 8 cipari!", "K��da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Numurā jābut 8 cipari!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			return true;
 		}
 		
 			for(int i=0; i<num.length(); i++){
 					int x = num.charAt(i);
 					if(x<48 || x>57){
-						JOptionPane.showMessageDialog(this, "Numurs nav ievad�ts korekti", "K��da", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Numurs nav ievadīts korekti", "Kļūda", JOptionPane.ERROR_MESSAGE);
 						return true;						
 					}else if(x>=48 && x<=57 && i==0 && x!=50){
-						JOptionPane.showMessageDialog(this, "Numura pirmam ciparam j�but 2", "K��da", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Numura pirmam ciparam jābut 2", "Kļūda", JOptionPane.ERROR_MESSAGE);
 						return true;
 					}
 			}
@@ -436,7 +451,7 @@ public class order extends JFrame implements ActionListener{
 		if(adrese.getText().length()<1 && irPiegade){
 			return true;
 		}else
-		if(epasts.getText().length()<1){
+		if(epasts.getText().length()<1 && irPiegade){
 			return true;
 		}
 		if(numurs.getText().length()<1){
@@ -464,9 +479,9 @@ public class order extends JFrame implements ActionListener{
 	double[] griekuCenas =   {6.59, 11.99, 18.99};
 	double[] margaritaCenas= {4.19, 7.69,  13.99};
 	double[][] cenas = {peperoniCenas, studentaCenas, vezuvaCenas, griekuCenas, margaritaCenas}; 
-	String pDesc = "\"Pepperoni\" desa, mocarella, k�pin�ts kaus�tais siers, \"Taco\" m�rce, s�polu �ipsi, rukola, tom�tu m�rce, �iploku m�rce, oregano";
-	String stDesc = "��i��is, c�si�i, mocarella, tom�tu m�rce, e��as un �iploku m�rce, oregano";
-	String vDesc = "��i��is, mocarella, tom�tu m�rce, e��as un �iploku m�rce, oregano";
-	String gDesc= "Svaigais siers, spin�ti, sk�b� kr�juma un �iploku m�rce, tom�tu m�rce, mocarella, e��as un �iploku m�rce, oregano";
-	String mDesc = "Mocarella, tom�tu m�rce, e��as un �iploku m�rce, oregano";
+	String pDesc = "\"Pepperoni\" desa, mocarella, kūpināts kausētais siers, \"Taco\" mērce, sīpolu čipsi, rukola, tomļātu mērce, ķiploku mērce, oregano";
+	String stDesc = "Šķiņķis, cīsiņi, mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
+	String vDesc = "Šķiņķis, mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
+	String gDesc= "Svaigais siers, spināti, skābā krējuma un ķiploku mērce, tomātu mērce, mocarella, eļļas un ķiploku mērce, oregano";
+	String mDesc = "Mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
 }

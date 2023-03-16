@@ -1,0 +1,124 @@
+sofija
+26764989
+epasts
+
+
+Peperoni, 20cm, cena: 7.39â‚¬
+PiedÄ“vas:
+â?¬Bekons = 1.6â‚¬
+â?¬BBQ = 0.85â‚¬
+-~-~-~-~-~-~-~-~-~-
+
+
+Piegâdes cena: 0.0€
+Kopâ: 9.84€
+
+
+
+vards
+20000000
+adrese
+epasts
+
+
+Peperoni, 20cm, cena: 7.39â‚¬
+-~-~-~-~-~-~-~-~-~-
+Vezuva, 20cm, cena: 6.59â‚¬
+PiedÄ“vas:
+â?¬Bekons = 1.6â‚¬
+â?¬BBQ = 0.85â‚¬
+-~-~-~-~-~-~-~-~-~-
+
+
+Piegâdes cena: 3.5€
+Kopâ: 19.93€
+
+
+
+Vârds: a
+Talr.: 27483748
+Email: mail@mail.com
+
+Peperoni, 20cm, cena: 7.39€
+Piedçvas:
+â?¬Bekons = 1.6â‚¬
+-~-~-~-~-~-~-~-~-~-
+Grieï¿½u, 20cm, cena: 6.59€
+Piedçvas:
+â?¬BBQ = 0.85â‚¬
+â?¬Ananasi = 1.1â‚¬
+-~-~-~-~-~-~-~-~-~-
+Piegâdes cena: 0.0€
+Kopâ: 17.53€
+-~-~---------~-~-~-
+-~-~-~-~-~-~-~-~-~-
+
+Vârds: test
+Talr.: 21234567
+Adrese: test
+Email: test
+
+Peperoni, 20cm, cena: 7.39€
+-~-~-~-~-~-~-~-~-~-
+Studenta, 30cm, cena: 11.99€
+Piedçvas:
+â?¬Bekons = 1.6â‚¬
+â?¬BBQ = 0.85â‚¬
+â?¬Ananasi = 1.1â‚¬
+-~-~-~-~-~-~-~-~-~-
+Piegâdes cena: 3.5€
+Kopâ: 26.43€
+-~-~---------~-~-~-
+-~-~-~-~-~-~-~-~-~-
+
+Vârds: test
+Talr.: 21234567
+Email: test
+
+Peperoni, 20cm, cena: 7.39€
+Piedçvas:
+â?¬Ananasi = 1.1â‚¬
+-~-~-~-~-~-~-~-~-~-
+Piegâdes cena: 0.0€
+Kopâ: 8.49€
+-~-~---------~-~-~-
+-~-~-~-~-~-~-~-~-~-
+
+Vârds: a
+Talr.: 21234567
+Adrese: adrese
+Email: epasts
+
+Peperoni, 20cm, cena: 7.39€
+-~-~-~-~-~-~-~-~-~-
+Vezuva, 20cm, cena: 6.59€
+Piedçvas:
+â?¬Bekons = 1.6â‚¬
+â?¬BBQ = 0.85â‚¬
+-~-~-~-~-~-~-~-~-~-
+Piegâdes cena: 3.5€
+Kopâ: 19.93€
+-~-~---------~-~-~-
+-~-~-~-~-~-~-~-~-~-
+
+Vârds: test
+Talr.: 21234567
+Adrese: test
+Email: test
+
+Peperoni, 20cm, cena: 7.39€
+-~-~-~-~-~-~-~-~-~-
+Peperoni, 20cm, cena: 7.39€
+Piedçvas:
+â?¬Bekons = 1.6â‚¬
+â?¬BBQ = 0.85â‚¬
+-~-~-~-~-~-~-~-~-~-
+Vezuva, 20cm, cena: 6.59€
+Piedçvas:
+â?¬Ananasi = 1.1â‚¬
+-~-~-~-~-~-~-~-~-~-
+Piegâdes cena: 3.5€
+Kopâ: 28.42€
+-~-~---------~-~-~-
+-~-~-~-~-~-~-~-~-~-
+
