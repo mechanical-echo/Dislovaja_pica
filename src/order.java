@@ -285,14 +285,14 @@ public class order extends JFrame implements ActionListener{
 	boolean irPiegade;
 	void deletePizza(){
 		if(orderList.size()<1){
-			JOptionPane.showMessageDialog(this, "Pasļæ½tļæ½jumļæ½ nekas nemaz nav!", "Kļæ½ļæ½da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Pasūtījumā nekas nemaz nav!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		String[] str = new String[orderList.size()];
 		for(int i=0; i<orderList.size(); i++){
 			str[i] = orderList.get(i).getName();
 		}
-		String choice =  (String) JOptionPane.showInputDialog(null, "Izvļæ½lies picu, kura jļæ½dzļæ½ļæ½: ", "Izvļæ½le", JOptionPane.QUESTION_MESSAGE, null, str, str[0]);
+		String choice =  (String) JOptionPane.showInputDialog(null, "Izvēlies picu, kuru dzest: ", "Izvēle", JOptionPane.QUESTION_MESSAGE, null, str, str[0]);
 		int index = Arrays.asList(str).indexOf(choice);
 		orderList.remove(index);
 		printOrder();
@@ -311,12 +311,12 @@ public class order extends JFrame implements ActionListener{
 			name = "Vezuva";i =2;
 		}else
 		if(grieku.isSelected()){
-			name = "Grieļæ½u";i =3;
+			name = "Grieķu";i =3;
 		}else
 		if(margarita.isSelected()){
 			name = "Margarita";i =4;
 		}else{
-			JOptionPane.showMessageDialog(null, "Pica nav izvļæ½lļæ½ta", "Kļæ½ļæ½da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Pica nav izvēlēta", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
@@ -329,7 +329,7 @@ public class order extends JFrame implements ActionListener{
 		if(s50.isSelected()){
 			size = 50;price = cenas[i][2];
 		}else{
-			JOptionPane.showMessageDialog(null, "Izmļæ½rs nav izvļæ½lļæ½ts", "Kļæ½ļæ½da", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Izmērs nav izvēlēts", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		ArrayList<String> piedevas = new ArrayList<String>();
