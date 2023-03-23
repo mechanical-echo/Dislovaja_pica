@@ -6,31 +6,35 @@ public class Pica {
 	double price;
 	ArrayList<String> piedevas;
 	public boolean irPiedevas;
-	public Pica(String n, int s, double p){
+
+	public Pica(String n, int s, double p) {
 		name = n;
 		size = s;
-		price= p;
+		price = p;
 		irPiedevas = false;
 	}
-	public Pica(String n, int s, double p, ArrayList<String> piedevas){
+
+	public Pica(String n, int s, double p, ArrayList<String> piedevas) {
 		name = n;
 		size = s;
-		price= p;
+		price = p;
 		this.piedevas = piedevas;
 		irPiedevas = true;
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
-	public double getPrice(){
+
+	public double getPrice() {
 		return price;
 	}
-	public int getSize(){
+
+	public int getSize() {
 		return size;
 	}
-	
-	public String descr(){
-		return "\""+name+"\", "+size+"cm, cena: "+price+"€";
+
+	public String descr() {
+		return "\"" + name + "\", " + size + "cm, cena: " + price + "€";
 	}
 }
