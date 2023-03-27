@@ -195,3 +195,34 @@ Kopâ: 32.13€
 -~-~---------~-~-~-
 -~-~-~-~-~-~-~-~-~-
 
+Vârds: dsadas
+Talr.: 26764989
+Studenta, 20cm, cena: 6.59€
+Piedçvas:
+>Bekons = 1.6€
+-~-~-~-~-~-~-~-~-~-
+Studenta, 20cm, cena: 6.59€
+-~-~-~-~-~-~-~-~-~-
+Piegâdes cena: 0.0€
+Kopâ: 14.78€
+-~-~---------~-~-~-
+-~-~-~-~-~-~-~-~-~-
+
+Vârds: dasd
+Talr.: 26764989
+Adrese: adrese
+Email: epasts
+
+Studenta, 20cm, cena: 6.59€
+Piedçvas:
+>Bekons = 1.6€
+-~-~-~-~-~-~-~-~-~-
+Studenta, 20cm, cena: 6.59€
+Piedçvas:
+>Ananasi = 1.1€
+-~-~-~-~-~-~-~-~-~-
+Piegâdes cena: 3.5€
+Kopâ: 19.38€
+-~-~---------~-~-~-
+-~-~-~-~-~-~-~-~-~-
+

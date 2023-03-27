@@ -104,7 +104,7 @@ public class Main implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == next) {
 			frame.dispose();									//close window
-			new order();										//start new order
+			new orderWindow();										//start new order
 		}
 	}
 
