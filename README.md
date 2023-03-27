@@ -9,7 +9,7 @@ Programma ļaus ievadīt klienta kontaktinformāciju, izvēlēties picu, to izm�
  - [x] Izmēru un piedēvu izvēle
  - [x] Pasūtījuma detaļas
  - [x] Sadalīt kodu uz mazākām pusēm (klasēm), lai būtu vieglāk ar tos trādāt 
- - [ ] Ielogošana
+
  
 ### PD Uzdevumi
  - [x] Doties uz GitHub un izveidot jaunu publisku krātuvi „Uzvards-pica’’
