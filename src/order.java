@@ -1,255 +1,92 @@
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
-public class order extends JFrame implements ActionListener {
-
-	JRadioButton s, m, l, thick, thin;
-	// big panels
-	JPanel textFieldPanel = new JPanel();
-	JPanel pizzaPanel = new JPanel();
-	JPanel orderPanel = new JPanel();
-	JPanel orderButtonPanel = new JPanel();
-	JPanel MainPanel = new JPanel();
-	///// subpanels
-	// textfields
-	JPanel labels = new JPanel();
-	JPanel fields = new JPanel();
-	JTextField vards = new JTextField(10);
-	JTextField numurs = new JTextField(10);
-	JTextField adrese = new JTextField(10);
-	JTextField epasts = new JTextField(10);
-	// radiobuttons
-	JPanel pizzaButtons = new JPanel();
-	JPanel sizeButtons = new JPanel();
-	///// radiobuttons
-	// pizzas
-	JRadioButton peperoni = new JRadioButton("Peperoni");
-	JRadioButton studenta = new JRadioButton("Studenta");
-	JRadioButton vezuva = new JRadioButton("Vezuva");
-	JRadioButton grieku = new JRadioButton("Grieķu");
-	JRadioButton margarita = new JRadioButton("Margarita");
-	///// piedevas
-	JCheckBoxMenuItem bekons = new JCheckBoxMenuItem("Bekons");
-	JCheckBoxMenuItem bbq = new JCheckBoxMenuItem("BBQ");
-	JCheckBoxMenuItem ananasi = new JCheckBoxMenuItem("Ananasi");
-	JPanel piedevasPanel = new JPanel();
-	// sizes
-	JRadioButton s20 = new JRadioButton("20cm");
-	JRadioButton s30 = new JRadioButton("30cm");
-	JRadioButton s50 = new JRadioButton("50cm");
-	///// Buttons
-	// pizza
-	JButton seeDescription = new JButton("Picas apraksts");
-	JButton delete = new JButton("Noņemt picu");
-	JButton sendOrder = new JButton("Pasūtīt");
-	JButton addPizza = new JButton("Pievienot picu");
-	///// Textarea
-	JTextArea orderContents = new JTextArea();
-	JScrollPane scroll;
-	///// parejie
-	ImageIcon picaPicture = new ImageIcon("pica.png");
-	ArrayList<Pica> orderList = new ArrayList<Pica>();
-
-	public order() {
-		seeDescription.addActionListener(this);
-		addPizza.addActionListener(this);
-		sendOrder.addActionListener(this);
-		delete.addActionListener(this);
-
-		Border border = BorderFactory.createLineBorder(Color.BLACK);
-
-		MainPanel.setLayout(new GridLayout(2, 2));
-		textFieldPanel.setLayout(new FlowLayout());
-		orderPanel.setLayout(new FlowLayout());
-		orderButtonPanel.setLayout(new FlowLayout());
-
-		textFieldPanel.setBorder(border);
-		pizzaPanel.setBorder(border);
-		orderPanel.setBorder(border);
-		orderButtonPanel.setBorder(border);
-
-		////// ievaddati
-		labels.setLayout(new GridLayout(4, 1));
-		fields.setLayout(new GridLayout(4, 1));
-
-		JLabel ievadiVardu = new JLabel("Jūsu vārds: ");
-		JLabel ievadiNumuru = new JLabel("Tal. numurs:");
-		JLabel ievadiAdresi = new JLabel("Jūsu adrese:");
-		JLabel ievadiEpastu = new JLabel("Jūsu epasts:");
-		labels.add(ievadiVardu);
-		fields.add(vards);
-		labels.add(ievadiNumuru);
-		fields.add(numurs);
-		labels.add(ievadiAdresi);
-		fields.add(adrese);
-		labels.add(ievadiEpastu);
-		fields.add(epasts);
-
-		textFieldPanel.add(labels);
-		textFieldPanel.add(fields);
-
-		///// Picas un izmera izvele
-		pizzaButtons.setLayout(new GridLayout(5, 1));
-		sizeButtons.setLayout(new GridLayout(3, 1));
-		ButtonGroup pB = new ButtonGroup();
-		ButtonGroup sB = new ButtonGroup();
-		pB.add(peperoni);
-		pB.add(studenta);
-		pB.add(vezuva);
-		pB.add(grieku);
-		pB.add(margarita);
-
-		pizzaButtons.add(peperoni);
-		pizzaButtons.add(studenta);
-		pizzaButtons.add(vezuva);
-		pizzaButtons.add(grieku);
-		pizzaButtons.add(margarita);
-
-		sB.add(s20);
-		sB.add(s30);
-		sB.add(s50);
-
-		sizeButtons.add(s20);
-		sizeButtons.add(s30);
-		sizeButtons.add(s50);
-		piedevasPanel.setLayout(new GridLayout(3, 1));
-		piedevasPanel.add(bekons);
-		piedevasPanel.add(bbq);
-		piedevasPanel.add(ananasi);
-
-		pizzaPanel.add(pizzaButtons);
-		pizzaPanel.add(sizeButtons);
-		pizzaPanel.add(piedevasPanel);
-		pizzaPanel.add(seeDescription);
-		/*****************************************
-		 * TEXTAREA AND SCROLLBAR
-		 */
-		scroll = new JScrollPane(orderContents);
-		orderPanel.add(new JLabel("Pasūtījuma apraksts:"));
-		orderPanel.add(scroll);
-		orderPanel.add(delete);
-		orderPanel.setLayout(new FlowLayout());
-		scroll.setPreferredSize(new Dimension(220, 100));
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		/*	
-		 * 
-		 */
-		JLabel picture = new JLabel(picaPicture);
-		picture.setPreferredSize(new Dimension(200, 80));
-		addPizza.setPreferredSize(new Dimension(200, 30));
-		sendOrder.setPreferredSize(new Dimension(200, 30));
-
-		orderButtonPanel.add(picture);
-		orderButtonPanel.add(addPizza);
-		orderButtonPanel.add(sendOrder);
-
-		///// galvena loga parametri
-		setTitle("Pasūtīt picu");
-		int x = 540, y = 370;
-		setSize(x, y);
-		setLocation(1920 / 2 - x / 2, 1080 / 2 - y / 2);
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		MainPanel.add(textFieldPanel);
-		MainPanel.add(pizzaPanel);
-		MainPanel.add(orderPanel);
-		MainPanel.add(orderButtonPanel);
-
-		add(MainPanel);
-
-	}
-
-	/*******************
-	 * pogu darbibas
+public class order extends JFrame{
+	static orderWindow ow = new orderWindow();
+	static boolean irPiegade;		//used to check what type of delivery is used
+	static double[] piedevuCenas = { 1.60, 0.85, 1.10 }; //prices for toppings
+	
+	/*~-~-~-~-~-~-
+	 * Make order
 	 */
-	@Override
-	public void actionPerformed(ActionEvent button) {
-		if (button.getSource() == seeDescription) {
-			description();
-		} else if (button.getSource() == delete) {
-			deletePizza();
-		} else if (button.getSource() == sendOrder) {
-			pasutit();
-		} else if (button.getSource() == addPizza) {
-			addPizzaToList();
-		}
+	static void pasutit() {
+		double deliveryPrice;								//full price for order
 
-	}
+		String[] optionsDelivery = { "Saņemt restauranā", "Piegāde līdz mājām" };	
+		int index = JOptionPane.showOptionDialog(
+				null, 
+				"Izvēlies piegādes veidu:", 
+				"Piegāde", 
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, 
+				null, 
+				optionsDelivery, 
+				optionsDelivery[0]
+		);
 
-	/*******************
-	 * galvenas metodes
-	 */
-	void pasutit() {
-		double deliveryPrice;
-
-		String[] optionsDelivery = { "Saņemt restauranā", "Piegāde līdz mājām" };
-		int index = JOptionPane.showOptionDialog(this, "Izvēlies piegādes veidu:", "Piegāde", JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, optionsDelivery, optionsDelivery[0]);
-
-		if (index == 0) {
+		if (index == 0) {									//if user chose "sanemt restaurana"
 			deliveryPrice = 0;
 			irPiegade = false;
-		} else {
+		} else {											//if user chose "pigade lidz majam"
 			deliveryPrice = 3.50;
 			irPiegade = true;
 		}
-		if (orderList.size() < 1) {
-			JOptionPane.showMessageDialog(this, "Pasūtījumā nekas nemaz nav!", "Klūda", JOptionPane.ERROR_MESSAGE);
+		if (ow.orderList.size() < 1) {						//if there is nothing in order
+			JOptionPane.showMessageDialog(
+					null, 
+					"Pasūtījumā nekas nemaz nav!", 
+					"Klūda", 
+					JOptionPane.ERROR_MESSAGE
+			);
 			return;
 		}
-		if (noContactData()) {
-			JOptionPane.showMessageDialog(this, "Kontaktinformācija nav aizpildīta līdz galām!", "Kļūda",
-					JOptionPane.ERROR_MESSAGE);
+		if (noContactData()) {								//if there is errors inside contact info
+			JOptionPane.showMessageDialog(
+					null, 
+					"Kontaktinformācija nav aizpildīta līdz galām!", 
+					"Kļūda",
+					JOptionPane.ERROR_MESSAGE
+			);
 			return;
 		}
 
-		double summary = sum(deliveryPrice);
+		double summary = sum(deliveryPrice);				//count order summary price
 
 		String str = "";
-		str += "Vārds: " + vards.getText() + "\n";
-		str += "Talr.: " + numurs.getText() + "\n";
+		
+		str += "Vārds: " + ow.vards.getText() + "\n";
+		str += "Talr.: " + ow.numurs.getText() + "\n";
 		if (irPiegade) {
-			str += "Adrese: " + adrese.getText() + "\n";
-			str += "Email: " + epasts.getText() + "\n\n";
+			str += "Adrese: " + ow.adrese.getText() + "\n";
+			str += "Email: " + ow.epasts.getText() + "\n\n";
 		}
 
-		for (int i = 0; i < orderList.size(); i++) {
-			if (orderList.get(i).irPiedevas) {
-				str += orderList.get(i).getName() + ", " + orderList.get(i).getSize() + "cm, cena: "
-						+ orderList.get(i).getPrice() + "€\nPiedēvas:\n" + visasPiedevas(orderList.get(i));
+		for (int i = 0; i < ow.orderList.size(); i++) {
+			if (ow.orderList.get(i).irPiedevas) {
+				str += ow.orderList.get(i).getName() 
+					+ ", " + ow.orderList.get(i).getSize() 
+					+ "cm, cena: "
+					+ ow.orderList.get(i).getPrice() 
+					+ "€\nPiedēvas:\n" 
+					+ visasPiedevas(ow.orderList.get(i)
+			);
 			} else {
-				str += orderList.get(i).getName() + ", " + orderList.get(i).getSize() + "cm, cena: "
-						+ orderList.get(i).getPrice() + "€\n";
+				str += ow.orderList.get(i).getName() 
+					+ ", " + ow.orderList.get(i).getSize() 
+					+ "cm, cena: "
+					+ ow.orderList.get(i).getPrice() 
+					+ "€\n";
 			}
 			str += "-~-~-~-~-~-~-~-~-~-\n";
 		}
-		for (int i = 0; i < orderList.size(); i++) {
-			if (orderList.get(i).irPiedevas) {
-				for (String j : orderList.get(i).piedevas) {
+		for (int i = 0; i < ow.orderList.size(); i++) {
+			if (ow.orderList.get(i).irPiedevas) {
+				for (String j : ow.orderList.get(i).piedevas) {
 					switch (j) {
 					case "Bekons":
 						summary += piedevuCenas[0];
@@ -264,59 +101,89 @@ public class order extends JFrame implements ActionListener {
 				}
 			}
 		}
+		
 		summary *= 100;
-		summary = Math.round(summary);
+		summary = Math.round(summary);						//round up summary to x.xx
 		summary /= 100;
 
 		str += "Piegādes cena: " + deliveryPrice + "€\n";
 		str += "Kopā: " + summary + "€\n";
 		str += "-~-~---------~-~-~-\n";
 		str += "-~-~-~-~-~-~-~-~-~-\n";
+		
 		String[] optionsPayment = { "Apmaksāt", "Atcelt" };
-		index = JOptionPane.showOptionDialog(this, str, "Pasūtījums", JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, optionsPayment, optionsPayment[0]);
+		
+		index = JOptionPane.showOptionDialog(
+				null, 
+				str, 
+				"Pasūtījums", 
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, 
+				null, 
+				optionsPayment, 
+				optionsPayment[0]
+		);
 		if (index == 0) {
-			dispose();
+			ow.dispose();
 			Main.checkout(str);
 			Main.readFile();
 		}
 	}
 
-	boolean irPiegade;
-
-	void deletePizza() {
-		if (orderList.size() < 1) {
-			JOptionPane.showMessageDialog(this, "Pasūtījumā nekas nemaz nav!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+	/*~-~-~-~-~-~-~-~-~-~-~-~-
+	 * delete pizza from list
+	 */
+	static void deletePizza() {
+		if (ow.orderList.size() < 1) {			//if there is no pizza in list
+			JOptionPane.showMessageDialog(
+					null, 
+					"Pasūtījumā nekas nemaz nav!", 
+					"Kļūda", 
+					JOptionPane.ERROR_MESSAGE
+			);
 			return;
 		}
-		String[] str = new String[orderList.size()];
-		for (int i = 0; i < orderList.size(); i++) {
-			str[i] = orderList.get(i).getName();
+		String[] str = new String[ow.orderList.size()]; //used to list pizzas in dropdown and to get index of chosen pizza
+		
+		for (int i = 0; i < ow.orderList.size(); i++) {	//adding all pizza names to array
+			str[i] = ow.orderList.get(i).getName();
 		}
-		String choice = (String) JOptionPane.showInputDialog(null, "Izvēlies picu, kuru dzest: ", "Izvēle",
-				JOptionPane.QUESTION_MESSAGE, null, str, str[0]);
+		
+		String choice = (String) JOptionPane.showInputDialog(
+				null, 
+				"Izvēlies picu, kuru dzest: ", 
+				"Izvēle",
+				JOptionPane.QUESTION_MESSAGE, 
+				null, 
+				str, 
+				str[0]);
 		int index = Arrays.asList(str).indexOf(choice);
-		orderList.remove(index);
+		ow.orderList.remove(index);
 		printOrder();
 	}
-
-	void addPizzaToList() {
+	
+	/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+	 * Check all selected options and add pizza according to them
+	 */
+	static void addPizzaToList() {
 		String name;
 		int size, i;
 		double price;
-		if (peperoni.isSelected()) {
+		
+		//check pizza buttons
+		if (ow.peperoni.isSelected()) {
 			name = "Peperoni";
 			i = 0;
-		} else if (studenta.isSelected()) {
+		} else if (ow.studenta.isSelected()) {
 			name = "Studenta";
 			i = 1;
-		} else if (vezuva.isSelected()) {
+		} else if (ow.vezuva.isSelected()) {
 			name = "Vezuva";
 			i = 2;
-		} else if (grieku.isSelected()) {
+		} else if (ow.grieku.isSelected()) {
 			name = "Grieķu";
 			i = 3;
-		} else if (margarita.isSelected()) {
+		} else if (ow.margarita.isSelected()) {
 			name = "Margarita";
 			i = 4;
 		} else {
@@ -324,56 +191,67 @@ public class order extends JFrame implements ActionListener {
 			return;
 		}
 
-		if (s20.isSelected()) {
+		//check size buttons
+		if (ow.s20.isSelected()) {
 			size = 20;
 			price = cenas[i][0];
-		} else if (s30.isSelected()) {
+		} else if (ow.s30.isSelected()) {
 			size = 30;
 			price = cenas[i][1];
-		} else if (s50.isSelected()) {
+		} else if (ow.s50.isSelected()) {
 			size = 50;
 			price = cenas[i][2];
 		} else {
 			JOptionPane.showMessageDialog(null, "Izmērs nav izvēlēts", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		ArrayList<String> piedevas = new ArrayList<String>();
-		if (bekons.isSelected()) {
+		
+		//list with toppings
+		ArrayList<String> piedevas = new ArrayList<String>(); 
+		
+		//Check toppings
+		if (ow.bekons.isSelected()) {
 			piedevas.add("Bekons");
 		}
-		if (bbq.isSelected()) {
+		if (ow.bbq.isSelected()) {
 			piedevas.add("BBQ");
 		}
-		if (ananasi.isSelected()) {
+		if (ow.ananasi.isSelected()) {
 			piedevas.add("Ananasi");
 		}
-		if (!bekons.isSelected() && !ananasi.isSelected() && !bbq.isSelected()) {
-			orderList.add(new Pica(name, size, price));
+		
+		if (!ow.bekons.isSelected() && !ow.ananasi.isSelected() && !ow.bbq.isSelected()) {
+			//if toppings are not chosen
+			ow.orderList.add(new Pica(name, size, price));
 		} else {
-			orderList.add(new Pica(name, size, price, piedevas));
+			//if there is toppings chosen
+			ow.orderList.add(new Pica(name, size, price, piedevas));
 		}
 
-		peperoni.setSelected(false);
-		studenta.setSelected(false);
-		vezuva.setSelected(false);
-		grieku.setSelected(false);
-		margarita.setSelected(false);
+		//unselect everything 
+		ow.peperoni.setSelected(false);
+		ow.studenta.setSelected(false);
+		ow.vezuva.setSelected(false);
+		ow.grieku.setSelected(false);
+		ow.margarita.setSelected(false);
 
-		s20.setSelected(false);
-		s30.setSelected(false);
-		s50.setSelected(false);
+		ow.s20.setSelected(false);
+		ow.s30.setSelected(false);
+		ow.s50.setSelected(false);
 
-		bekons.setSelected(false);
-		bbq.setSelected(false);
-		ananasi.setSelected(false);
+		ow.bekons.setSelected(false);
+		ow.bbq.setSelected(false);
+		ow.ananasi.setSelected(false);
 
+		//reprint textArea
 		printOrder();
 
 	}
 
-	double[] piedevuCenas = { 1.60, 0.85, 1.10 };
-
-	String visasPiedevas(Pica p) {
+	/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+	 * Get string with all topping descriptions
+	 */
+	static String visasPiedevas(Pica p) {
 		String str = "";
 		ArrayList<String> al = p.piedevas;
 		for (String pied : al) {
@@ -393,35 +271,40 @@ public class order extends JFrame implements ActionListener {
 		}
 		return str;
 	}
-
-	void printOrder() {
+	
+	/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+	 * Print order contents inside TextArea 
+	 */
+	static void printOrder() {
 		String str = "";
-		for (int i = 0; i < orderList.size(); i++) {
-			if (orderList.get(i).irPiedevas) {
-				str += orderList.get(i).getName() + ", " + orderList.get(i).getSize() + "cm, cena: "
-						+ orderList.get(i).getPrice() + "€\nPiedēvas:\n" + visasPiedevas(orderList.get(i));
+		for (int i = 0; i < ow.orderList.size(); i++) {
+			if (ow.orderList.get(i).irPiedevas) {
+				str += ow.orderList.get(i).getName() + ", " + ow.orderList.get(i).getSize() + "cm, cena: "
+						+ ow.orderList.get(i).getPrice() + "€\nPiedēvas:\n" + visasPiedevas(ow.orderList.get(i));
 			} else {
-				str += orderList.get(i).getName() + ", " + orderList.get(i).getSize() + "cm, cena: "
-						+ orderList.get(i).getPrice() + "€\n";
+				str += ow.orderList.get(i).getName() + ", " + ow.orderList.get(i).getSize() + "cm, cena: "
+						+ ow.orderList.get(i).getPrice() + "€\n";
 			}
 			str += "-~-~-~-~-~-~-~-~-~-\n";
 
 		}
 		System.out.println(str);
-		orderContents.setText(str);
-		orderContents.updateUI();
+		ow.orderContents.setText(str);
+		ow.orderContents.updateUI();
 	}
-
-	void description() {
-		if (peperoni.isSelected()) {
+	/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+	 * Show window with pizza descriptions
+	 */
+	static void description() {
+		if (ow.peperoni.isSelected()) {
 			JOptionPane.showMessageDialog(null, pDesc, "Peperoni pica", JOptionPane.PLAIN_MESSAGE);
-		} else if (studenta.isSelected()) {
+		} else if (ow.studenta.isSelected()) {
 			JOptionPane.showMessageDialog(null, stDesc, "Studenta pica", JOptionPane.PLAIN_MESSAGE);
-		} else if (vezuva.isSelected()) {
+		} else if (ow.vezuva.isSelected()) {
 			JOptionPane.showMessageDialog(null, vDesc, "Vezuva pica", JOptionPane.PLAIN_MESSAGE);
-		} else if (grieku.isSelected()) {
+		} else if (ow.grieku.isSelected()) {
 			JOptionPane.showMessageDialog(null, gDesc, "Grieķu pica", JOptionPane.PLAIN_MESSAGE);
-		} else if (margarita.isSelected()) {
+		} else if (ow.margarita.isSelected()) {
 			JOptionPane.showMessageDialog(null, mDesc, "Margarita pica", JOptionPane.PLAIN_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(null, "Pica nav izvēlēta", "Kļūda", JOptionPane.ERROR_MESSAGE);
@@ -429,66 +312,83 @@ public class order extends JFrame implements ActionListener {
 	}
 
 	/*********************
-	 * ievaddatu parbaudes
+	 * Check phone number 
 	 */
-	boolean checkNumurs(String num) {
+	static boolean checkNumurs(String num) {
 		if (num.length() != 8) {
-			JOptionPane.showMessageDialog(this, "Numurā jābut 8 cipari!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(
+					null, 
+					"Numurā jābut 8 cipari!", 
+					"Kļūda", 
+					JOptionPane.ERROR_MESSAGE
+			);
 			return true;
 		}
 
 		for (int i = 0; i < num.length(); i++) {
 			int x = num.charAt(i);
 			if (x < 48 || x > 57) {
-				JOptionPane.showMessageDialog(this, "Numurs nav ievadīts korekti", "Kļūda", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(
+						null, 
+						"Numurs nav ievadīts korekti", 
+						"Kļūda", 
+						JOptionPane.ERROR_MESSAGE
+				);
 				return true;
 			} else if (x >= 48 && x <= 57 && i == 0 && x != 50) {
-				JOptionPane.showMessageDialog(this, "Numura pirmam ciparam jābut 2", "Kļūda",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(
+						null, 
+						"Numura pirmam ciparam jābut 2", 
+						"Kļūda",
+						JOptionPane.ERROR_MESSAGE
+				);
 				return true;
 			}
 		}
 		return false;
 	}
-
-	boolean noContactData() {
-		if (vards.getText().length() < 1) {
+	
+	/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+	 * Check contact data for errors
+	 */
+	static boolean noContactData() {
+		if (ow.vards.getText().length() < 1) {
 			return true;
-		} else if (adrese.getText().length() < 1 && irPiegade) {
+		} else if (ow.adrese.getText().length() < 1 && irPiegade) {
 			return true;
-		} else if (epasts.getText().length() < 1 && irPiegade) {
+		} else if (ow.epasts.getText().length() < 1 && irPiegade) {
 			return true;
 		}
-		if (numurs.getText().length() < 1) {
+		if (ow.numurs.getText().length() < 1) {
 			return true;
-		} else if (numurs.getText().length() > 0) {
-			return checkNumurs(numurs.getText());
+		} else if (ow.numurs.getText().length() > 0) {
+			return checkNumurs(ow.numurs.getText());
 		} else {
 			return false;
 		}
 	}
 
-	/*********************
-	 * parejie mainigie
+	/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+	 * Get summary price of order
 	 */
-	double sum(double del) {
+	static double sum(double del) {
 		double a = 0;
-		for (int i = 0; i < orderList.size(); i++) {
-			a += orderList.get(i).getPrice();
+		for (int i = 0; i < ow.orderList.size(); i++) {
+			a += ow.orderList.get(i).getPrice();
 		}
 		a += del;
 		return a;
 	}
 
-	double[] peperoniCenas = { 7.39, 12.99, 21.99 };
-	double[] studentaCenas = { 6.59, 11.99, 18.99 };
-	double[] vezuvaCenas = { 6.59, 11.99, 18.99 };
-	double[] griekuCenas = { 6.59, 11.99, 18.99 };
-	double[] margaritaCenas = { 4.19, 7.69, 13.99 };
-	double[][] cenas = { peperoniCenas, studentaCenas, vezuvaCenas, griekuCenas, margaritaCenas };
-	String pDesc = "\"Pepperoni\" desa, mocarella, kūpināts kausētais siers, \"Taco\" mērce, sīpolu čipsi, rukola, tomļātu mērce, ķiploku mērce, oregano";
-	String stDesc = "Šķiņķis, cīsiņi, mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
-	String vDesc = "Šķiņķis, mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
-	String gDesc = "Svaigais siers, spināti, skābā krējuma un ķiploku mērce, tomātu mērce, mocarella, eļļas un ķiploku mērce, oregano";
-	String mDesc = "Mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
+	static double[] peperoniCenas = { 7.39, 12.99, 21.99 }; 		
+	static double[] studentaCenas = { 6.59, 11.99, 18.99 };
+	static double[] vezuvaCenas = { 6.59, 11.99, 18.99 };
+	static double[] griekuCenas = { 6.59, 11.99, 18.99 };
+	static double[] margaritaCenas = { 4.19, 7.69, 13.99 };
+	static double[][] cenas = { peperoniCenas, studentaCenas, vezuvaCenas, griekuCenas, margaritaCenas };
+	static String pDesc = "\"Pepperoni\" desa, mocarella, kūpināts kausētais siers, \"Taco\" mērce, sīpolu čipsi, rukola, tomļātu mērce, ķiploku mērce, oregano";
+	static String stDesc = "Šķiņķis, cīsiņi, mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
+	static String vDesc = "Šķiņķis, mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
+	static String gDesc = "Svaigais siers, spināti, skābā krējuma un ķiploku mērce, tomātu mērce, mocarella, eļļas un ķiploku mērce, oregano";
+	static String mDesc = "Mocarella, tomātu mērce, eļļas un ķiploku mērce, oregano";
 }
